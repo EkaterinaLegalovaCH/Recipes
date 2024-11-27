@@ -8,7 +8,7 @@ let recipes = [];
 let isEditMode = false; // Flag to indicate whether it's in edit mode
 
 // Fetch recipes from FastAPI server using a GET request
-fetch('http://127.0.0.1:8000/recipes')
+fetch('https://my-recipes-4wwm.onrender.com/recipes')
   .then(response => {
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
