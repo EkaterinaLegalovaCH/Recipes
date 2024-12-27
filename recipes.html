@@ -27,11 +27,17 @@
       <button id="submitForm">Add Recipe</button>
     </div>
 
+    <div class="search-sort-controls">
+      <input type="text" id="searchBox" placeholder="Search recipes..." oninput="filterRecipes()">
+      <select id="sortOptions" onchange="sortRecipes()">
+        <option value="name">Sort by Name</option>
+        <option value="ingredients">Sort by Number of Ingredients</option>
+      </select>
+    </div>
 
     <div class="grid-container" id="displayArea">
       <h2>Your Recipes:</h2>
     </div>
   </div>
 </body>
-
 </html>

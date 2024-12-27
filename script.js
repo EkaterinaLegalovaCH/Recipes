@@ -6,6 +6,9 @@ let recipeImage = document.getElementById('recipeImage');
 let displayArea = document.getElementById('displayArea');
 let recipes = [];
 let isEditMode = false; // Flag to indicate whether it's in edit mode
+let searchBox = document.getElementById('searchBox');
+let sortOptions = document.getElementById('sortOptions');
+
 
 // Fetch recipes from FastAPI server using a GET request
 fetch('https://my-recipes-4wwm.onrender.com/recipes')
@@ -48,7 +51,7 @@ recipeForm.addEventListener('click', async function (event) {
       recipeToEdit.steps = enteredSteps.split(',').map(item => item.trim());
       recipeToEdit.image = enteredUrl;
 
-      const response = await fetch(`http://127.0.0.1:8000/recipes/${recipeToEdit.id}`, {
+      const response = await fetch(`https://my-recipes-4wwm.onrender.com/recipes/${recipeToEdit.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +70,7 @@ recipeForm.addEventListener('click', async function (event) {
       document.getElementById('submitForm').textContent = 'Add Recipe'; // Change button text back to 'Add Recipe'
     } else {
       // Handle add mode
-      const response = await fetch('http://127.0.0.1:8000/recipes', {
+      const response = await fetch('https://my-recipes-4wwm.onrender.com/recipes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,6 +98,31 @@ recipeForm.addEventListener('click', async function (event) {
     console.error('Error:', error.message);
   }
 });
+
+searchBox.addEventListener('input', filterRecipes);
+sortOptions.addEventListener('change', sortRecipes);
+
+function filterRecipes() {
+  let searchQuery = searchBox.value.toLowerCase();
+  let filteredRecipes = recipes.filter(recipe => {
+    return recipe.name.toLowerCase().includes(searchQuery) || 
+           recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(searchQuery));
+  });
+  displayArea.innerHTML = '';
+  filteredRecipes.forEach(recipe => displayRecipe(recipe));
+}
+
+function sortRecipes() {
+  let sortOrder = sortOptions.value;
+  recipes.sort((a,b) => {
+    if (sortOrder === 'name') {
+      return a.name.localCompare(b.name);
+    } else if (sortOrder === 'ingredients') {
+      return a.ingredients.length - b.ingredients.length;
+    }
+  });
+  refreshDisplay();
+}
 
 // Add event listener to the edit button
 async function editRecipe(recipeId) {
@@ -133,7 +161,7 @@ function displayRecipe(recipe, index) {
 
 async function deleteRecipe(recipeId) {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/recipes/${recipeId}`, {
+    const response = await fetch(`https://my-recipes-4wwm.onrender.com/recipes/${recipeId}`, {
       method: 'DELETE',
     });
 
@@ -158,16 +186,14 @@ async function refreshDisplay() {
     displayArea.innerHTML = '<h2>Your Recipes:</h2>';
 
     // Fetch recipes from FastAPI server using a GET request
-    const response = await fetch('http://127.0.0.1:8000/recipes');
+    const response = await fetch('https://my-recipes-4wwm.onrender.com/recipes');
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
     recipes = await response.json();
 
     // Display all fetched recipes
-    for (let i = 0; i < recipes.length; i++) {
-      displayRecipe(recipes[i], i);
-    }
+    recipes.forEach(recipe => displayRecipe(recipe));
   } catch (error) {
     console.error('Error refreshing display:', error.message);
   }
