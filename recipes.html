@@ -9,34 +9,37 @@
 <body>
   <div class="container">
     <h1 class="heading">Recipe Keeper.</h1>
-  
-    <div class="form-container" id="recipeForm">
-      <h2>Add Recipe.</h2>
-      <label for="recipeName">Recipe Name</label>
-      <input type="text" id="recipeName" placeholder="Enter Recipe Name"><br>
+    
+    <div class="side-container">
+      <div class="form-container" id="recipeForm">
+        <h2>Add Recipe.</h2>
+        <label for="recipeName">Recipe Name</label>
+        <input type="text" id="recipeName" placeholder="Enter Recipe Name"><br>
 
-      <label for="ingredients">Ingredients</label>
-      <textarea id="ingredients" placeholder="List ingredients, separated by commas"></textarea><br>
+        <label for="ingredients">Ingredients</label>
+        <textarea id="ingredients" placeholder="List ingredients, separated by commas"></textarea><br>
 
-      <label for="steps">Steps for preparation</label>
-      <textarea id="steps" placeholder="Steps for preparation"></textarea><br>
-      
-      <label for="recipeImage">Recipe Image URL:</label>
-      <input type="url" id="recipeImage" name="recipeImage" placeholder="http://example.com/my-dish.jpg"><br>
+        <label for="steps">Steps for preparation</label>
+        <textarea id="steps" placeholder="Steps for preparation"></textarea><br>
+        
+        <label for="recipeImage">Recipe Image URL:</label>
+        <input type="url" id="recipeImage" name="recipeImage" placeholder="http://example.com/my-dish.jpg"><br>
 
-      <button id="submitForm">Add Recipe</button>
+        <button id="submitForm">Add Recipe</button>
+      </div>
     </div>
 
-    <div class="search-sort-controls">
-      <input type="text" id="searchBox" placeholder="Search recipes..." oninput="filterRecipes()">
-      <select id="sortOptions" onchange="sortRecipes()">
-        <option value="name">Sort by Name</option>
-        <option value="ingredients">Sort by Number of Ingredients</option>
-      </select>
-    </div>
-
-    <div class="grid-container" id="displayArea">
-      <h2>Your Recipes:</h2>
+    <div class="main-container">
+      <div class="search-sort-controls">
+        <input type="text" id="searchBox" placeholder="Search recipes..." oninput="filterRecipes()">
+        <select id="sortOptions" onchange="sortRecipes()">
+          <option value="name">Sort by Name</option>
+          <option value="ingredients">Sort by Number of Ingredients</option>
+        </select>
+      </div>
+      <div class="grid-container" id="displayArea">
+        <h2>Your Recipes:</h2>
+      </div>
     </div>
   </div>
 </body>

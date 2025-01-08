@@ -145,12 +145,14 @@ function displayRecipe(recipe, index) {
   recipeDiv.className = 'recipe';
   recipeDiv.innerHTML = `
     <h3>${recipe.name}</h3>
-    <div class="recipeImage">
-      <img src="${recipe.image}" alt="${recipe.name}">
-    </div>
-    <div class="recipeDetails">
-      <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
-      <p>Steps: ${recipe.steps.join(', ')}</p>
+    <div class="recipeContainer">
+      <div class="recipeImage">
+        <img src="${recipe.image}" alt="${recipe.name}">
+      </div>
+      <div class="recipeDetails">
+        <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
+        <p>Steps: ${recipe.steps.join(', ')}</p>
+      </div>
     </div>
     <button class="deleteButton" onclick="deleteRecipe(${recipe.id})">Delete Recipe</button>
     <button class="editButton" onclick="editRecipe(${recipe.id})">Edit Recipe</button>
